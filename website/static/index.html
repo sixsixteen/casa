@@ -2,28 +2,18 @@
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Casa Core</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Dev environment made configurable">
+  <meta name="author" content="Garrett Maring">
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
 
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
 
   <style type="text/css">
@@ -77,11 +67,11 @@
     <section class="header" style="padding-bottom: 4rem">
       <img src="images/logo.png" class="logo">
       <h1>Casa</h1>
-      <h4 class="title">A simple tool for configuring you developer environment.</h4>
-      <code>$ ruby -e "$(curl https://raw.githubusercontent.com/casa-core/casa/master/lib/casa/installer.rb)"</code>
+      <h4 class="title">A simple tool for configuring your developer environment.</h4>
+      <code style="white-space: normal">$ ruby -e "$(curl https://raw.githubusercontent.com/casa-core/casa/master/lib/casa/installer.rb)"</code>
       <div class="row" style="margin: 2rem 0">
-        <a class="button" href="#">Github</a>
-        <a class="button button-primary" href="#">Documentation</a>
+        <a class="button" href="https://github.com/sixsixteen/casa">Github</a>
+        <a class="button button-primary" href="https://garrettmaring.gitbooks.io/casa/content/">Documentation</a>
       </div>
     </section>
 
@@ -90,14 +80,14 @@
       <h6 class="docs-header">Why Casa?</h6>
       <p>Having a development environment that you're comfortable with is like being in a nice, familiar space - a home. Likewise, trying to code in a different environment is distracting, frustrating, and makes coding less fun! Organizing a developer environemnt to fit your needs, from dotfiles to brew packages to custom scripts, allows you to understand your tools better and write better code.</p>
 
-      <p>Casa is a tool to help you configure you environment and run a simple command on any new machine so that it feels like you're right at home. Checkout the <a href="http://www.getskeleton.com">documentation</a> and the Github <a href="http://www.getskeleton.com">repository</a>!</p>
+      <p>Casa is a tool to help you configure you environment and run a simple command on any new machine so that it feels like you're right at home. Checkout the <a href="https://garrettmaring.gitbooks.io/casa/content/">documentation</a> and the Github <a href="https://github.com/sixsixteen/casa">repository</a>!</p>
     </div>
 
     <!-- How it works -->
     <div class="section">
       <h6 class="docs-header">How it works</h6>
-      <p>There are several commands built into Casa (see them with <code>casa help</code>!) but the most important one is <code>casa furnish</code>.</p>
-      <p>This command, when run in a "config-like" (more on that in the docs) directory that containes a casa.yml file builds out your environment exactly how you specified in your yaml file. It does so in a way that is completely system safe as well, everything that Casa does to your environment can be undone by simply uninstalling Casa.</p>
+      <p>There are several commands built into Casa (see them with <code>$ casa help</code>!) but the most important one is <code>$ casa furnish</code>.</p>
+      <p>This command, when run in a directory that containes a casa.yml file, builds out your environment exactly how you specified in your yaml file. It does so in a way that is completely system safe as well, everything that Casa does to your environment can be undone by simply uninstalling Casa.</p>
     </div>
 
     <!-- What it looks like -->
@@ -106,7 +96,7 @@
       <p>When configuring your environment configuration with Casa you'll need a directory structure with a <code>casa.yml</code></p>
 
       <!-- the casa.yaml -->
-<pre><code># casa.yml
+<pre><code style="word-break: break-word"># casa.yml
 
 name: garrett's config
 repo: https://github.com/casa-core/casa.git
@@ -126,19 +116,22 @@ scripts:
   - link-dotfiles.sh
 </code></pre>
 
-      <p>A more fleshed out configuration can contain two high level directories: </p> 
+      <p>A more fleshed out configuration can contain two directories in addition to the casa.yml file: </p> 
       <ol>
         <li><code class="code-example-body prettyprint-small">files</code> which can be an level of nested files that you want your scripts to reference</li>
         <li><code class="code-example-body prettyprint-small">scripts</code> to be executed in the order specified in your <code class="code-example-body prettyprint-small">casa.yml</code>. These scripts can reference your own files or powerful casa <strong>modules</strong>. Currently Casa supports <em>bash</em>, <em>node</em>, <em>ruby</em>, and <em>python</em> scripts.</li>
       </ol>
-      <p>Reference the <a href="#">docs</a> to learn about modules and see how to take full advantage of Casa configurations!</p>
+      <p>Reference the <a href="https://garrettmaring.gitbooks.io/casa/content/">docs</a> to learn about modules and see how to take full advantage of Casa configurations!</p>
 
       <!-- the directory structure -->
 <pre class="code-example"><code class="code-example-body prettyprint">my_config_dir/
   casa.yml
   files/
-    dot
+    dotfiles/
+      .vimrc
+      .bashrc
   scripts/
+    link-dotfiles-with-system.sh
 </code></pre>
 
     </div>
