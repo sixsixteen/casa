@@ -1,0 +1,17 @@
+name: garrett's config
+type: config
+repo: https://github.com/casa-core/casa.git
+brew_kegs:
+  - imagemagick
+  - ccrypt
+ruby_gems:
+  - launchy
+pip_packages:
+  - saf
+node_modules:
+  - graphicsmagick
+casa_modules:
+  - essentials
+  
+scripts:
+  - link-dotfiles.sh

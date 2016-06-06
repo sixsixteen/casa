@@ -1,0 +1,11 @@
+name: Roark Inc.
+type: module
+repo: https://github.com/casa-core/casa.git
+brew_kegs:
+ruby_gems:
+pip_packages:
+node_modules:
+casa_modules:
+  - roark_test_suite
+scripts:
+  - build_roak_db.rb

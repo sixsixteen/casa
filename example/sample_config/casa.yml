@@ -1,0 +1,9 @@
+name: sample_config
+repo: https://github.com/casa-core/casa/tree/master/example/sample_config
+type: config
+brew_kegs:
+ruby_gems:
+pip_packages:
+node_modules:
+casa_modules:
+scripts:

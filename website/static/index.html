@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Casa Core</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <style type="text/css">
+    
+    .logo {
+      width: 15rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .header {
+      text-align: center;
+    }
+
+    .section {
+      border-top: 1px solid #eee;
+      padding: 4rem 0;
+      margin-bottom: 0;
+    }
+
+    .prettyprint {
+      background: #fff;
+      font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+      font-size: 1.2rem;
+      padding: 2.5rem 3rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .prettyprint-small {
+      background: #fff;
+      font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .code-example-body {
+      white-space: pre;
+      word-wrap: break-word;
+    }
+
+    h6 {
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      letter-spacing: .2rem;
+      font-weight: 600;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container" style="margin-top: 10%">
+    <!-- Header -->
+    <section class="header" style="padding-bottom: 4rem">
+      <img src="images/logo.png" class="logo">
+      <h1>Casa</h1>
+      <h4 class="title">A simple tool for configuring you developer environment.</h4>
+      <code>$ ruby -e "$(curl https://raw.githubusercontent.com/casa-core/casa/master/lib/casa/installer.rb)"</code>
+      <div class="row" style="margin: 2rem 0">
+        <a class="button" href="#">Github</a>
+        <a class="button button-primary" href="#">Documentation</a>
+      </div>
+    </section>
+
+    <!-- Why Casa? -->
+    <div class="section">
+      <h6 class="docs-header">Why Casa?</h6>
+      <p>Having a development environment that you're comfortable with is like being in a nice, familiar space - a home. Likewise, trying to code in a different environment is distracting, frustrating, and makes coding less fun! Organizing a developer environemnt to fit your needs, from dotfiles to brew packages to custom scripts, allows you to understand your tools better and write better code.</p>
+
+      <p>Casa is a tool to help you configure you environment and run a simple command on any new machine so that it feels like you're right at home. Checkout the <a href="http://www.getskeleton.com">documentation</a> and the Github <a href="http://www.getskeleton.com">repository</a>!</p>
+    </div>
+
+    <!-- How it works -->
+    <div class="section">
+      <h6 class="docs-header">How it works</h6>
+      <p>There are several commands built into Casa (see them with <code>casa help</code>!) but the most important one is <code>casa furnish</code>.</p>
+      <p>This command, when run in a "config-like" (more on that in the docs) directory that containes a casa.yml file builds out your environment exactly how you specified in your yaml file. It does so in a way that is completely system safe as well, everything that Casa does to your environment can be undone by simply uninstalling Casa.</p>
+    </div>
+
+    <!-- What it looks like -->
+    <div class="section">
+      <h6 class="docs-header">What it looks like?</h6>
+      <p>When configuring your environment configuration with Casa you'll need a directory structure with a <code>casa.yml</code></p>
+
+      <!-- the casa.yaml -->
+<pre><code># casa.yml
+
+name: garrett's config
+repo: https://github.com/casa-core/casa.git
+type: config
+brew_kegs:
+  - imagemagick
+  - ccrypt
+ruby_gems:
+  - launchy
+pip_packages:
+  - saf
+node_modules:
+  - graphicsmagick
+casa_modules:
+  - essentials
+scripts:
+  - link-dotfiles.sh
+</code></pre>
+
+      <p>A more fleshed out configuration can contain two high level directories: </p> 
+      <ol>
+        <li><code class="code-example-body prettyprint-small">files</code> which can be an level of nested files that you want your scripts to reference</li>
+        <li><code class="code-example-body prettyprint-small">scripts</code> to be executed in the order specified in your <code class="code-example-body prettyprint-small">casa.yml</code>. These scripts can reference your own files or powerful casa <strong>modules</strong>. Currently Casa supports <em>bash</em>, <em>node</em>, <em>ruby</em>, and <em>python</em> scripts.</li>
+      </ol>
+      <p>Reference the <a href="#">docs</a> to learn about modules and see how to take full advantage of Casa configurations!</p>
+
+      <!-- the directory structure -->
+<pre class="code-example"><code class="code-example-body prettyprint">my_config_dir/
+  casa.yml
+  files/
+    dot
+  scripts/
+</code></pre>
+
+    </div>
+
+    <!-- End Container -->
+  </div>
+</body>
+</html>
