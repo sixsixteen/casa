@@ -3,7 +3,7 @@
 require "fileutils"
 
 CASA_DIR = "/usr/local/Casa"
-CASA_REPO = "https://github.com/casa-core/casa.git"
+CASA_REPO = "https://github.com/sixsixteen/casa.git"
 
 CASA_MODULES_DIR = "/usr/local/Palacio"
 
