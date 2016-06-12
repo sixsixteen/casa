@@ -25,6 +25,9 @@ module PackageInstaller
   ]
 
   def self.install_all_packages packages
+    # REVIEW: dried this up a lot, added a base class that
+    # StandardPackageManager and BrewPackageManager inherit
+    # from
     MANAGERS.each do |manager|
       if manager.exist_and_install
         key = manager.config_key

@@ -44,6 +44,15 @@ module Command
   module Init
     def self.run args=[]
       # Is current directory already a config/module?
+      # REVIEW: the original if-then-end thing was too long for a single line,
+      # also I think it's discouraged in general:
+      #
+      # if true then do_a_thing end
+      #
+      # do_a_thing if true -> better
+      #
+      # Personally I prefer if blocks everywhere, but if you're going to do
+      # single-line if statements then the second is more idiomatic and shorter
       if File.exist? "casa.yml"
         abort "There is already a casa.yml file present. You must be in an empty directory."
       end

@@ -1,6 +1,8 @@
 require "fileutils"
 require "optparse"
 
+# REVIEW: there's no reason to re-require utils every time
+
 # Import all utils
 
 ##########################
@@ -30,6 +32,7 @@ class Parser
     end
 
     opt_parser.parse! options
+    # REVIEW: implicit returns are encouraged in ruby
     args
   end
 end
@@ -38,6 +41,8 @@ end
 ##########################
 ##########################
 
+# REVIEW: I put every command under the Command module, to avoid polluting the global
+# namespace and to allow the various commands to share constants
 module Command
   SOURCES = %w(brew_kegs ruby_gems pip_packages node_modules casa_modules)
   module Furnish
@@ -48,6 +53,8 @@ module Command
 
       ## Load YAML & set related variables
       yaml = YamlHelper.load_yaml_to_object "casa.yml"
+      # REVIEW: I dried this up a little, there was a good amount of code
+      # repetition before
       packages_obj = SOURCES.map do |src|
         [src, yaml.fetch(src, [])]
       end.to_h
