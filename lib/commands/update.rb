@@ -1,9 +1,6 @@
 require "fileutils"
 require "optparse"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 ##########################
 #### Command: update #####
 ##########################
@@ -12,7 +9,7 @@ Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
 #
 # The update command checks the version of casa and reinstalls if needed.
 # Can pass in arguments to update modules to latest version.
-# 
+#
 # THIS IS NOT IMPLEMENTED.
 #
 
@@ -38,7 +35,9 @@ class Parser
     end
 
     opt_parser.parse! options
-    return args
+    # REVIEW: I don't like it, but implicit returns are
+    # encouraged in ruby
+    args
   end
 end
 
@@ -46,8 +45,10 @@ end
 ##########################
 ##########################
 
-module Update
-  def self.run args=[]
-    puts "Updating casa..."
+module Command
+  module Update
+    def self.run _args=[]
+      puts "Updating casa..."
+    end
   end
 end

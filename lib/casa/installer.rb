@@ -15,19 +15,18 @@ CASA_MODULES_DIR = "/usr/local/Palacio"
 #
 # This installs Casa globally. It does this by creating the /usr/local/Casa and the /usr/local/Palacio directories and cloning
 # Casa into /usr/local/Casa.
-# 
+#
 
 ##########################
 ##########################
 ##########################
-
 
 module Install
   def self.run
     puts "Preparing to install Casa..."
 
     # Check to see if Casa has already been installed
-    if Dir.exist? CASA_DIR or Dir.exist? CASA_MODULES_DIR
+    if Dir.exist?(CASA_DIR) || Dir.exist?(CASA_MODULES_DIR)
       puts "Casa is already installed. Would you like to reinstall? (y/n) "
       continue = gets.chomp
       if continue == "y"
@@ -39,11 +38,11 @@ module Install
       end
     end
 
-    self.create_casa_directories
+    create_casa_directories
 
-    self.clone_casa
+    clone_casa
 
-    self.configure_casa_shell_command
+    configure_casa_shell_command
   end
 
   def self.create_casa_directories
@@ -52,13 +51,13 @@ module Install
   end
 
   def self.clone_casa
-    if !system "git clone #{CASA_REPO} #{CASA_DIR}"
+    unless system "git clone #{CASA_REPO} #{CASA_DIR}"
       abort "Downloading Casa failed. :("
     end
   end
 
   def self.configure_casa_shell_command
-    # Execution permissions 
+    # Execution permissions
     FileUtils.chmod 0755, "#{CASA_DIR}/lib/casa/casa.rb"
 
     # Copy contents to extensionless file

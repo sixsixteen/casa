@@ -1,9 +1,6 @@
 require "fileutils"
 require "optparse"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 ##########################
 #### Command: init #######
 ##########################
@@ -12,7 +9,7 @@ Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
 #
 # This creates a project strucutre for a casa config. It generates a yml file
 # and two empty directories: "files" and "scripts"
-# 
+#
 
 ### Options ###
 class Parser
@@ -35,7 +32,7 @@ class Parser
     end
 
     opt_parser.parse! options
-    return args
+    args
   end
 end
 
@@ -43,20 +40,24 @@ end
 ##########################
 ##########################
 
-module Init
-  def self.run args=[]
-    # Is current directory already a config/module?
-    if File.exist? "casa.yml" then abort "There is already a casa.yml file present. You must be in an empty directory." end
+module Command
+  module Init
+    def self.run args=[]
+      # Is current directory already a config/module?
+      if File.exist? "casa.yml"
+        abort "There is already a casa.yml file present. You must be in an empty directory."
+      end
 
-    # Build yaml file
-    YamlHelper.build_yml_file args[0]
+      # Build yaml file
+      YamlHelper.build_yml_file args[0]
 
-    # Add empty dotfiles and scripts dirs
-    self.add_files_and_scripts_dirs
-  end
+      # Add empty dotfiles and scripts dirs
+      add_files_and_scripts_dirs
+    end
 
-  def self.add_files_and_scripts_dirs
-    FileUtils.mkdir "#{FileUtils.pwd }/files", :mode => 0777
-    FileUtils.mkdir "#{FileUtils.pwd }/scripts", :mode => 0777
+    def self.add_files_and_scripts_dirs
+      FileUtils.mkdir "#{FileUtils.pwd }/files", :mode => 0777
+      FileUtils.mkdir "#{FileUtils.pwd }/scripts", :mode => 0777
+    end
   end
 end

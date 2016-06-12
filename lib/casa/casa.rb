@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-# Import all casa commands
-Dir["/usr/local/Casa/lib/commands/*.rb"].each { |file| require file }
+# Import all casa commands + utils
+Dir["#{__dir__}/../utils/*.rb"].each { |file| require file }
+Dir["#{__dir__}/../commands/*.rb"].each { |file| require file }
 
 ##########################
 ########## casa ##########
@@ -10,7 +11,7 @@ Dir["/usr/local/Casa/lib/commands/*.rb"].each { |file| require file }
 ### Docs ###
 #
 # The Casa CLI command ($ casa )
-# 
+#
 
 ##########################
 ##########################
@@ -20,9 +21,11 @@ module Casa
   def self.run command
     unless command.nil?
       cap_command = command.capitalize
-      if Object.const_defined? cap_command
-        # Imported command modules are capitalized versions of script commands. Pass along args/options from command line minus "casa"
-        command_module = Object.const_get command.capitalize
+      if Command.const_defined? cap_command
+        # Imported command modules are capitalized versions
+        # of script commands. Pass along args/options from
+        # command line minus "casa"
+        command_module = Command.const_get cap_command
         command_module.run ARGV.drop 1
         return
       else

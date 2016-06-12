@@ -2,8 +2,6 @@ require "fileutils"
 require "optparse"
 
 # Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 
 ##########################
 #### Command: furnish ####
@@ -32,7 +30,7 @@ class Parser
     end
 
     opt_parser.parse! options
-    return args
+    args
   end
 end
 
@@ -40,29 +38,26 @@ end
 ##########################
 ##########################
 
-module Furnish
-  def self.run args=[]
-    ## Check to make sure in a directory with a casa_config.yml file 
-    if !File.exist? "casa.yml"
-      abort "You need to be in a directory with a casa.yml file!"
+module Command
+  SOURCES = %w(brew_kegs ruby_gems pip_packages node_modules casa_modules)
+  module Furnish
+    def self.run _args=[]
+      unless File.exist? "casa.yml"
+        abort "You need to be in a directory with a casa.yml file!"
+      end
+
+      ## Load YAML & set related variables
+      yaml = YamlHelper.load_yaml_to_object "casa.yml"
+      packages_obj = SOURCES.map do |src|
+        [src, yaml.fetch(src, [])]
+      end.to_h
+
+      ## Install all packages
+      PackageInstaller.install_all_packages packages_obj
+
+      scripts_arr = yaml["scripts"] || []
+      # ## Run casa module scripts
+      ScriptsRunner.run_scripts scripts_arr
     end
-
-    ## Load YAML & set related variables
-    yaml = YamlHelper.load_yaml_to_object "casa.yml"
-    packages_obj = {
-      "brew_kegs" => yaml["brew_kegs"] || [],
-      "ruby_gems" => yaml["ruby_gems"] || [],
-      "pip_packages" => yaml["pip_packages"] || [],
-      "node_modules" => yaml["node_modules"] || [],
-      "casa_modules" => yaml["casa_modules"] || []
-    }
-
-    scripts_arr = yaml["scripts"] || []
-
-    ## Install all packages
-    PackageInstaller.install_all_packages packages_obj
-
-    # ## Run casa module scripts
-    ScriptsRunner.run_scripts yaml["scripts"] || []
   end
 end

@@ -1,8 +1,5 @@
 require "optparse"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 ##########################
 #### Command: search #####
 ##########################
@@ -10,7 +7,7 @@ Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
 ### Docs ###
 #
 # Searches the casa registry.
-# 
+#
 # THIS IS NOT IMPLEMENTED.
 #
 
@@ -32,15 +29,17 @@ class Parser
     end
 
     opt_parser.parse! options
-    return args
+    args
   end
 end
 
 ##########################
 ##########################
 
-module Search
-	def self.run args=[]
-		puts "Searching!"
-	end
+module Command
+  module Search
+    def self.run args=[]
+      puts "Searching!"
+    end
+  end
 end

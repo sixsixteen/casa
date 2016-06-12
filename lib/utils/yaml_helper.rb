@@ -2,9 +2,6 @@ require "erb"
 require "yaml"
 require "fileutils"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 #################################
 ##### Helper: uninstaller #######
 #################################
@@ -30,8 +27,8 @@ end
 module YamlHelper
   def self.build_yml_file type
     # Type
-    while ! type == "config" || type == "module" do
-      type = self.prompt_for_config_type
+    until (type == "config") || (type == "module")
+      type = prompt_for_config_type
     end
 
     # Name
@@ -45,7 +42,7 @@ module YamlHelper
 
     # Create file from casa_yaml_template with values
     new_file = File.open "#{FileUtils.pwd}/casa.yml", "w+"
-    template = File.read "/usr/local/Casa/lib/misc/casa_yaml_template.yml.erb"
+    template = File.read "#{__dir__}/../misc/casa_yaml_template.yml.erb"
     config = ConfigFileClass.new
     config.type = type
     config.name = name
@@ -57,21 +54,19 @@ module YamlHelper
   end
 
   def self.load_yaml_to_object path
-    return YAML.load_file path
+    YAML.load_file path
   end
 
   def self.prompt_for_config_type
     answer = Prompt.run "Type must either be config or module. Enter a type  or \"exit\" to exit: "
 
-    puts case answer
+    case answer
     when "config"
-      return "config"
+      "config"
     when "module"
-      return "module"
+      "module"
     when "exit"
       abort "Aborting intialization"
-    else
-      return nil
     end
   end
 end
