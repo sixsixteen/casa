@@ -15,19 +15,22 @@ CASA_MODULES_DIR = "/usr/local/Palacio"
 #
 # This installs Casa globally. It does this by creating the /usr/local/Casa and the /usr/local/Palacio directories and cloning
 # Casa into /usr/local/Casa.
-# 
+#
 
 ##########################
 ##########################
 ##########################
-
 
 module Install
   def self.run
     puts "Preparing to install Casa..."
 
     # Check to see if Casa has already been installed
-    if Dir.exist? CASA_DIR or Dir.exist? CASA_MODULES_DIR
+    # REVIEW: I try to avoid multiple whitespace-separated
+    # expressions on the same line, makes it confusing to
+    # read for people that don't know what the precedence
+    # rules are
+    if Dir.exist?(CASA_DIR) || Dir.exist?(CASA_MODULES_DIR)
       puts "Casa is already installed. Would you like to reinstall? (y/n) "
       continue = gets.chomp
       if continue == "y"
@@ -39,11 +42,13 @@ module Install
       end
     end
 
-    self.create_casa_directories
+    # REVIEW: You don't need to write `self.` before calling
+    # a module / classes own methods
+    create_casa_directories
 
-    self.clone_casa
+    clone_casa
 
-    self.configure_casa_shell_command
+    configure_casa_shell_command
   end
 
   def self.create_casa_directories
@@ -52,13 +57,15 @@ module Install
   end
 
   def self.clone_casa
-    if !system "git clone #{CASA_REPO} #{CASA_DIR}"
+    # REVIEW: I don't like it, but `unless` is idiomatic
+    # ruby
+    unless system "git clone #{CASA_REPO} #{CASA_DIR}"
       abort "Downloading Casa failed. :("
     end
   end
 
   def self.configure_casa_shell_command
-    # Execution permissions 
+    # Execution permissions
     FileUtils.chmod 0755, "#{CASA_DIR}/lib/casa/casa.rb"
 
     # Copy contents to extensionless file

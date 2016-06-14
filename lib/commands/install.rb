@@ -1,9 +1,6 @@
 require "fileutils"
 require "optparse"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
-
 ##########################
 #### Command: install ####
 ##########################
@@ -11,7 +8,7 @@ Dir["/usr/local/Casa/lib/utils/*.rb"].each { |file| require file }
 ### Docs ###
 #
 # The install command takes a list of modules to install from the Casa registry.
-# 
+#
 # THIS IS NOT IMPLEMENTED. It currently iterates through the Palacio directory (where globally)
 # installed modules will be stored and reports on the module's existence.
 #
@@ -34,7 +31,7 @@ class Parser
     end
 
     opt_parser.parse! options
-    return args
+    args
   end
 end
 
@@ -42,14 +39,16 @@ end
 ##########################
 ##########################
 
-module Install
-  def self.run args=[]
-    args.each { |i| 
-      if Dir.exist? "/usr/local/Palacio/modules/#{i}"
-        puts "The module #{i} exist!"
-      else
-        puts "#{i} is not a module!"
+module Command
+  module Install
+    def self.run args=[]
+      args.each do |i|
+        if Dir.exist? "Palacio/modules/#{i}"
+          puts "The module #{i} exists!"
+        else
+          puts "#{i} is not a module!"
+        end
       end
-    }
+    end
   end
 end

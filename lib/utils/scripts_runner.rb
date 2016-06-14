@@ -1,8 +1,5 @@
 require "fileutils"
 
-# Import all utils
-Dir["/usr/local/Casa/lib/utils/*.rb"].each {|file| require file }
-
 #################################
 ##### Helper: scripts_runner #####
 #################################
@@ -21,30 +18,44 @@ Dir["/usr/local/Casa/lib/utils/*.rb"].each {|file| require file }
 module ScriptsRunner
   def self.run_scripts scripts=[]
     ## Run Scripts - iterate through scripts
-    scripts.each { |i|
-      command = self.return_command_for_extension i
+    scripts.each do |i|
+      command = return_command_for_extension i
       # If valid commmand was returned
       if command
         system "#{command} #{FileUtils.pwd }/scripts/#{i}"
       end
-    }
+    end
   end
 
   def self.return_command_for_extension script
     extension = File.extname script
 
-    puts case extension
+    # This case statement wasn't doing what you were
+    # intending it to do. Here's a shorter version of it:
+    #
+    # def test_case_statement
+    #   puts case 3
+    #   when 3
+    #     return 7
+    #   end
+    # end
+    #
+    # > test_case_statement(); nil
+    #
+    # Nothing is logged because you're returning the values,
+    # so the case statement never actually 'finishes'
+    case extension
     when ".sh"
-      return "sh"
+      "sh"
     when ".js"
-      return "node"
+      "node"
     when ".rb"
-      return "ruby"
+      "ruby"
     when ".py"
-      return "python"
+      "python"
     else
       puts "The script \"#{script}\" could not be run because #{extension} is an invalid extension to run."
-      return false
+      false
     end
   end
 end

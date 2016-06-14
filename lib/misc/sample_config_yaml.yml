@@ -12,6 +12,6 @@ node_modules:
   - graphicsmagick
 casa_modules:
   - essentials
-  
+
 scripts:
   - link-dotfiles.sh

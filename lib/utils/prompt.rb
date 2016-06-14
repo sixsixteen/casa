@@ -16,7 +16,7 @@
 
 module Prompt
   def self.run *args
-    print *args
+    print(*args)
     STDIN.gets.chomp
-    end
+  end
 end
