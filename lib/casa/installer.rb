@@ -26,10 +26,6 @@ module Install
     puts "Preparing to install Casa..."
 
     # Check to see if Casa has already been installed
-    # REVIEW: I try to avoid multiple whitespace-separated
-    # expressions on the same line, makes it confusing to
-    # read for people that don't know what the precedence
-    # rules are
     if Dir.exist?(CASA_DIR) || Dir.exist?(CASA_MODULES_DIR)
       puts "Casa is already installed. Would you like to reinstall? (y/n) "
       continue = gets.chomp
@@ -42,8 +38,6 @@ module Install
       end
     end
 
-    # REVIEW: You don't need to write `self.` before calling
-    # a module / classes own methods
     create_casa_directories
 
     clone_casa
@@ -57,8 +51,6 @@ module Install
   end
 
   def self.clone_casa
-    # REVIEW: I don't like it, but `unless` is idiomatic
-    # ruby
     unless system "git clone #{CASA_REPO} #{CASA_DIR}"
       abort "Downloading Casa failed. :("
     end

@@ -27,7 +27,6 @@ end
 module YamlHelper
   def self.build_yml_file type
     # Type
-    # REVIEW: `until` is probably more readable in this case
     until (type == "config") || (type == "module")
       type = prompt_for_config_type
     end
